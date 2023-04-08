@@ -13,7 +13,7 @@ const Paths = {
     Update: "/update",
     Delete: "/delete/:id",
   },
-  Events: {
+  ScreeningEvents: {
     Base: "/events",
     Get: "/all",
     Add: "/add",

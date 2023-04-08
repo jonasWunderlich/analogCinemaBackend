@@ -13,8 +13,8 @@ import { ScreeningEventType } from "@src/models/sceening-event-type";
 import { ScreeningEvent } from "@src/models/screening-event";
 import { mockNumber, getRandomSubarray } from "./mock-data";
 
-const MAX_CINEMAS = 100;
-const MAX_EVENTS = 20;
+const MAX_CINEMAS = 50;
+const MAX_EVENTS = 10;
 const MAX_REPORTS = 2;
 
 export interface ReferencedMockData {
@@ -59,8 +59,8 @@ export function buildRefrencedApiMocks(): ReferencedMockData {
     // CREATE PROJECTIONS
     eventCinemas.forEach((cinema) => {
       // BUILD EVENT REFERENCE FOR CINEMA
-      cinema.eventRef = cinema?.eventRef
-        ? [...cinema.eventRef, event.id]
+      cinema.eventRefs = cinema?.eventRefs
+        ? [...cinema.eventRefs, event.id]
         : [event.id];
 
       // BUILD PROJECTIONS FOR CINEMA
@@ -124,7 +124,7 @@ export function buildRefrencedApiMocks(): ReferencedMockData {
   });
 
   return {
-    cinemas: allCinemas.filter((cinema) => cinema.eventRef?.length),
+    cinemas: allCinemas.filter((cinema) => cinema.eventRefs?.length),
     auditoriums: allAuditoriums,
     screeningEvents: allScreeningEvents,
     projections: allProjections,

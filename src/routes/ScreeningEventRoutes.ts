@@ -1,6 +1,6 @@
 import HttpStatusCodes from "@src/constants/HttpStatusCodes";
 
-import ScreeningEventService from "@src/services/EventService";
+import ScreeningEventService from "@src/services/ScreeningEventService";
 import { IReq, IRes } from "./types/express/misc";
 import { ScreeningEvent } from "@src/models/screening-event";
 

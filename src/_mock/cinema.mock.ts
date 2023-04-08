@@ -36,7 +36,6 @@ const CINEMA_DEFAULT_VALUES: Cinema = {
   reportRefs: [],
   eventRefs: [],
   auditoriumRefs: [],
-  eventRef: [],
   projectionRefs: [],
 };
 
@@ -72,7 +71,6 @@ export function mockCinema(cinemaValues: DeepPartial<Cinema>): Cinema {
     reportRefs: [],
     eventRefs: [],
     auditoriumRefs: [],
-    eventRef: [],
     projectionRefs: [],
   };
   return {

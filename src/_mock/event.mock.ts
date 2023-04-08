@@ -11,6 +11,7 @@ import {
   sortByISODate,
 } from "../utilities/mock-data";
 import {
+  MOCKED_CINEMA_IMAGES,
   MOCKED_CITIES,
   MOCKED_EVENT_NAMES,
   MOCKED_EVENT_TEXTS,
@@ -34,6 +35,7 @@ const SCREENING_EVENT_DEFAULT_VALUES: ScreeningEvent = {
   linkHomepage: "https://www.kommkino.de/festival/hofbauer-kongress",
   linkProgram: "https://www.example.com",
   cinemaRefs: [],
+  images: [pickRandom(MOCKED_CINEMA_IMAGES)],
 };
 
 /**
@@ -76,6 +78,7 @@ export function mockScreeningEvent(
     linkProgram: SCREENING_EVENT_DEFAULT_VALUES.linkProgram,
     mail: SCREENING_EVENT_DEFAULT_VALUES.mail,
     phone: SCREENING_EVENT_DEFAULT_VALUES.phone,
+    images: [pickRandom(MOCKED_CINEMA_IMAGES)],
     cinemaRefs: [],
     projectionRefs: [],
     reportRefs: [],

@@ -8,6 +8,10 @@ import CinemaRoutes from "./CinemaRoutes";
 import ReportRoutes from "./ReportRoutes";
 import cinema from "@src/models/cinema";
 import report from "@src/models/report";
+import projection from "@src/models/projection";
+import ProjectionRoutes from "./ProjectionRoutes";
+import ScreeningEventRoutes from "./ScreeningEventRoutes";
+import screeningEvent from "@src/models/screening-event";
 
 // **** Variables **** //
 
@@ -73,7 +77,7 @@ cinemaRouter.delete(
   CinemaRoutes.delete
 );
 
-// Add UserRouter
+// Add CinemaRouter
 apiRouter.use(Paths.Cinemas.Base, cinemaRouter);
 
 // ** Add ReportRouter ** //
@@ -104,8 +108,73 @@ reportRouter.delete(
   ReportRoutes.delete
 );
 
-// Add UserRouter
+// Add ReportsRouter
 apiRouter.use(Paths.Reports.Base, reportRouter);
+
+// ** Add ProjectionRouter ** //
+
+const projectionRouter = Router();
+
+// Get all projections
+projectionRouter.get(Paths.Projections.Get, ProjectionRoutes.getAll);
+
+// Add one projection
+projectionRouter.post(
+  Paths.Projections.Add,
+  validate(["projection", projection.isProjection]),
+  ProjectionRoutes.add
+);
+
+// Update one projection
+projectionRouter.put(
+  Paths.Projections.Update,
+  validate(["projection", projection.isProjection]),
+  ProjectionRoutes.update
+);
+
+// Delete one projection
+projectionRouter.delete(
+  Paths.Projections.Delete,
+  validate(["id", "number", "params"]),
+  ProjectionRoutes.delete
+);
+
+// Add ProjectionsRouter
+apiRouter.use(Paths.Projections.Base, projectionRouter);
+
+// ** Add ScreeningEventRouter ** //
+
+const screeningEventRouter = Router();
+
+// Get all screeningEvents
+screeningEventRouter.get(
+  Paths.ScreeningEvents.Get,
+  ScreeningEventRoutes.getAll
+);
+
+// Add one screeningEvent
+screeningEventRouter.post(
+  Paths.ScreeningEvents.Add,
+  validate(["screeningEvent", screeningEvent.isScreeningEvent]),
+  ScreeningEventRoutes.add
+);
+
+// Update one screeningEvent
+screeningEventRouter.put(
+  Paths.ScreeningEvents.Update,
+  validate(["screeningEvent", screeningEvent.isScreeningEvent]),
+  ScreeningEventRoutes.update
+);
+
+// Delete one screeningEvent
+screeningEventRouter.delete(
+  Paths.ScreeningEvents.Delete,
+  validate(["id", "number", "params"]),
+  ScreeningEventRoutes.delete
+);
+
+// Add ScreeningEventsRouter
+apiRouter.use(Paths.ScreeningEvents.Base, screeningEventRouter);
 
 // **** Export default **** //
 

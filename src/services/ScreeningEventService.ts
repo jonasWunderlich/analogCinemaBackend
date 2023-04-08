@@ -1,4 +1,4 @@
-import ScreeningEventRepo from "@src/repos/EventRepo";
+import ScreeningEventRepo from "@src/repos/ScreeningEventRepo";
 import { RouteError } from "@src/other/classes";
 import HttpStatusCodes from "@src/constants/HttpStatusCodes";
 import { ScreeningEvent } from "@src/models/screening-event";

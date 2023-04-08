@@ -21,7 +21,6 @@ export interface Cinema {
   linkOpeningHours?: string;
   images: string[];
   auditoriumRefs: string[];
-  eventRef: string[];
   projectionRefs: string[];
   reportRefs: string[];
   eventRefs: string[];
@@ -48,7 +47,6 @@ function new_(
   linkOpeningHours?: string,
   images?: string[],
   auditoriumRefs?: string[],
-  eventRef?: string[],
   projectionRefs?: string[],
   reportRefs?: string[],
   eventRefs?: string[],
@@ -73,7 +71,6 @@ function new_(
     linkOpeningHours: linkOpeningHours ?? "",
     images: images ?? [],
     auditoriumRefs: auditoriumRefs ?? [],
-    eventRef: eventRef ?? [],
     projectionRefs: projectionRefs ?? [],
     reportRefs: reportRefs ?? [],
     eventRefs: eventRefs ?? [],
@@ -106,7 +103,6 @@ function from(param: object): Cinema {
     p.linkOpeningHours,
     p.images,
     p.auditoriumRefs,
-    p.eventRef,
     p.projectionRefs,
     p.reportRefs,
     p.eventRefs
@@ -136,7 +132,6 @@ function isCinema(arg: unknown): boolean {
     "linkOpeningHours" in arg &&
     "images" in arg &&
     "auditoriumRefs" in arg &&
-    "eventRef" in arg &&
     "projectionRefs" in arg &&
     "reportRefs" in arg &&
     "eventRefs" in arg

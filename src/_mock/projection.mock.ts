@@ -5,7 +5,11 @@ import {
   randomDate,
   sortByISODate,
 } from "../utilities/mock-data";
-import { MOCKED_PROJECTION_NAMES, MOCKED_TMDBIDS } from "./constants";
+import {
+  MOCKED_CINEMA_IMAGES,
+  MOCKED_PROJECTION_NAMES,
+  MOCKED_TMDBIDS,
+} from "./constants";
 import { randomUUID } from "crypto";
 import { Projection } from "@src/models/projection";
 import { DeepPartial } from "@src/models/deep-partial";
@@ -21,6 +25,7 @@ const PROJECTION_DEFAULT_VALUES: Projection = {
   When you get lost in your imaginatory vagueness, your foresight will become a nimble vagrant.`,
   agent: "Lorem Ipsum",
   black: false,
+  images: [pickRandom(MOCKED_CINEMA_IMAGES)],
 };
 
 /**

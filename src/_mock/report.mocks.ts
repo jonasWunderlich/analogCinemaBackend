@@ -1,7 +1,11 @@
 import { DeepPartial } from "@src/models/deep-partial";
 import { Report } from "@src/models/report";
 import { pickRandom, randomDate, sortByISODate } from "../utilities/mock-data";
-import { MOCKED_REPORT_NAMES, MOCKED_REPORT_TEXTS } from "./constants";
+import {
+  MOCKED_CINEMA_IMAGES,
+  MOCKED_REPORT_NAMES,
+  MOCKED_REPORT_TEXTS,
+} from "./constants";
 import { randomUUID } from "crypto";
 
 const REPORT_DEFAULT_VALUES: Report = {
@@ -37,6 +41,7 @@ export function mockReport(reportValues: DeepPartial<Report>): Report {
     lastModifiedAt: REPORT_DEFAULT_VALUES.lastModifiedAt,
     title: pickRandom(MOCKED_REPORT_NAMES),
     text: pickRandom(MOCKED_REPORT_TEXTS),
+    images: [pickRandom(MOCKED_CINEMA_IMAGES)],
     date: date.toJSON(),
   };
   return {
