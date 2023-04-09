@@ -22,6 +22,13 @@ function getAll(): Promise<IAuditorium[]> {
 }
 
 /**
+ * Get one auditoriums.
+ */
+function getOne(id: string): Promise<IAuditorium | null> {
+  return AuditoriumRepo.getOne(id);
+}
+
+/**
  * Add one auditorium.
  */
 async function addOne(auditorium: IAuditoriumCreate): Promise<void> {
@@ -71,6 +78,7 @@ async function _delete(id: string): Promise<void> {
 
 export default {
   getAll,
+  getOne,
   addOne,
   updateOne,
   delete: _delete,

@@ -19,6 +19,13 @@ function getAll(): Promise<ICinema[]> {
 }
 
 /**
+ * Get one cinemas.
+ */
+function getOne(id: string): Promise<ICinema | null> {
+  return CinemaRepo.getOne(id);
+}
+
+/**
  * Add one cinema.
  */
 async function addOne(cinema: ICinemaCreate): Promise<void> {
@@ -65,6 +72,7 @@ async function _delete(id: string): Promise<void> {
 
 export default {
   getAll,
+  getOne,
   addOne,
   updateOne,
   delete: _delete,

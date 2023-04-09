@@ -21,6 +21,13 @@ function getAll(): Promise<IScreeningEvent[]> {
 }
 
 /**
+ * Get one screeningEvents.
+ */
+function getOne(id: string): Promise<IScreeningEvent | null> {
+  return ScreeningEventRepo.getOne(id);
+}
+
+/**
  * Add one screeningEvent.
  */
 async function addOne(screeningEvent: IScreeningEventCreate): Promise<void> {
@@ -79,6 +86,7 @@ async function _delete(id: string): Promise<void> {
 
 export default {
   getAll,
+  getOne,
   addOne,
   updateOne,
   delete: _delete,

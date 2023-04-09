@@ -9,6 +9,7 @@ const Paths = {
   Users: {
     Base: "/users",
     Get: "/all",
+    GetOne: "/get/:id",
     Add: "/add",
     Update: "/update",
     Delete: "/delete/:id",
@@ -16,6 +17,7 @@ const Paths = {
   ScreeningEvents: {
     Base: "/events",
     Get: "/all",
+    GetOne: "/get/:id",
     Add: "/add",
     Update: "/update",
     Delete: "/delete/:id",
@@ -23,6 +25,7 @@ const Paths = {
   Cinemas: {
     Base: "/cinemas",
     Get: "/all",
+    GetOne: "/get/:id",
     Add: "/add",
     Update: "/update",
     Delete: "/delete/:id",
@@ -30,6 +33,7 @@ const Paths = {
   Reports: {
     Base: "/reports",
     Get: "/all",
+    GetOne: "/get/:id",
     Add: "/add",
     Update: "/update",
     Delete: "/delete/:id",
@@ -37,6 +41,7 @@ const Paths = {
   Projections: {
     Base: "/projections",
     Get: "/all",
+    GetOne: "/get/:id",
     Add: "/add",
     Update: "/update",
     Delete: "/delete/:id",
@@ -44,6 +49,7 @@ const Paths = {
   Auditoriums: {
     Base: "/auditoriums",
     Get: "/all",
+    GetOne: "/get/:id",
     Add: "/add",
     Update: "/update",
     Delete: "/delete/:id",

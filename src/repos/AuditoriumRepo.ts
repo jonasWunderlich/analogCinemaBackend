@@ -1,6 +1,5 @@
 import orm from "./MockOrm";
-import { IAuditorium, IAuditoriumCreate } from "@src/models/Auditorium";
-import { randomUUID } from "crypto";
+import { IAuditorium } from "@src/models/Auditorium";
 
 // **** Functions **** //
 
@@ -41,7 +40,7 @@ async function getAll(): Promise<IAuditorium[]> {
 /**
  * Add one auditorium.
  */
-async function add(auditorium: IAuditoriumCreate): Promise<void> {
+async function add(auditorium: IAuditorium): Promise<void> {
   const db = await orm.openDb();
   db.auditoriums.push(auditorium);
   return orm.saveDb(db);

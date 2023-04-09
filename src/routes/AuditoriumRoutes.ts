@@ -15,6 +15,15 @@ async function getAll(_: IReq, res: IRes) {
 }
 
 /**
+ * Get one auditorium.
+ */
+async function getOne(req: IReq, res: IRes) {
+  const id = req.params.id;
+  const auditorium = await AuditoriumService.getOne(id);
+  return res.status(HttpStatusCodes.OK).json({ auditorium });
+}
+
+/**
  * Add one auditorium.
  */
 async function add(req: IReq<{ auditorium: IAuditoriumCreate }>, res: IRes) {
@@ -45,6 +54,7 @@ async function delete_(req: IReq, res: IRes) {
 
 export default {
   getAll,
+  getOne,
   add,
   update,
   delete: delete_,

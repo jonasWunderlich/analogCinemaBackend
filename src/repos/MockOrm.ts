@@ -2,10 +2,10 @@ import jsonfile from "jsonfile";
 
 import { IUser } from "@src/models/User";
 import { IScreeningEvent } from "@src/models/ScreeningEvent";
-import { IReport } from "@src/models/Report";
-import { IProjection } from "@src/models/Projection";
 import { IAuditorium } from "@src/models/Auditorium";
 import { ICinema } from "@src/models/Cinema";
+import { IProjection } from "@src/models/Projection";
+import { IReport } from "@src/models/Report";
 
 // **** Variables **** //
 

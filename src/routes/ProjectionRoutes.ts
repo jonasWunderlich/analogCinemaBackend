@@ -1,8 +1,8 @@
 import HttpStatusCodes from "@src/constants/HttpStatusCodes";
 
-import ProjectionService from "@src/services/ProjectionService";
 import { IReq, IRes } from "./types/express/misc";
 import { IProjection, IProjectionCreate } from "@src/models/Projection";
+import ProjectionService from "@src/services/ProjectionService";
 
 // **** Functions **** //
 
@@ -12,6 +12,15 @@ import { IProjection, IProjectionCreate } from "@src/models/Projection";
 async function getAll(_: IReq, res: IRes) {
   const projections = await ProjectionService.getAll();
   return res.status(HttpStatusCodes.OK).json({ projections });
+}
+
+/**
+ * Get one projections.
+ */
+async function getOne(req: IReq, res: IRes) {
+  const id = req.params.id;
+  const projection = await ProjectionService.getOne(id);
+  return res.status(HttpStatusCodes.OK).json({ projection });
 }
 
 /**
@@ -45,6 +54,7 @@ async function delete_(req: IReq, res: IRes) {
 
 export default {
   getAll,
+  getOne,
   add,
   update,
   delete: delete_,

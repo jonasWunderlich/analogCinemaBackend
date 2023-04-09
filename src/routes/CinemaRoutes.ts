@@ -15,6 +15,15 @@ async function getAll(_: IReq, res: IRes) {
 }
 
 /**
+ * Get one cinema.
+ */
+async function getOne(req: IReq, res: IRes) {
+  const id = req.params.id;
+  const cinema = await CinemaService.getOne(id);
+  return res.status(HttpStatusCodes.OK).json({ cinema });
+}
+
+/**
  * Add one cinema.
  */
 async function add(req: IReq<{ cinema: ICinemaCreate }>, res: IRes) {
@@ -45,6 +54,7 @@ async function delete_(req: IReq, res: IRes) {
 
 export default {
   getAll,
+  getOne,
   add,
   update,
   delete: delete_,

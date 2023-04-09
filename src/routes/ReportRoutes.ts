@@ -15,6 +15,15 @@ async function getAll(_: IReq, res: IRes) {
 }
 
 /**
+ * Get one report.
+ */
+async function getOne(req: IReq, res: IRes) {
+  const id = req.params.id;
+  const report = await ReportService.getOne(id);
+  return res.status(HttpStatusCodes.OK).json({ report });
+}
+
+/**
  * Add one report.
  */
 async function add(req: IReq<{ report: IReportCreate }>, res: IRes) {
@@ -45,6 +54,7 @@ async function delete_(req: IReq, res: IRes) {
 
 export default {
   getAll,
+  getOne,
   add,
   update,
   delete: delete_,

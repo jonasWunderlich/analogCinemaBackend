@@ -18,6 +18,15 @@ async function getAll(_: IReq, res: IRes) {
 }
 
 /**
+ * Get one screeningEvent.
+ */
+async function getOne(req: IReq, res: IRes) {
+  const id = req.params.id;
+  const screeningEvent = await ScreeningEventService.getOne(id);
+  return res.status(HttpStatusCodes.OK).json({ screeningEvent });
+}
+
+/**
  * Add one screeningEvent.
  */
 async function add(
@@ -54,6 +63,7 @@ async function delete_(req: IReq, res: IRes) {
 
 export default {
   getAll,
+  getOne,
   add,
   update,
   delete: delete_,

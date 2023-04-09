@@ -19,6 +19,13 @@ function getAll(): Promise<IReport[]> {
 }
 
 /**
+ * Get one reports.
+ */
+function getOne(id: string): Promise<IReport | null> {
+  return ReportRepo.getOne(id);
+}
+
+/**
  * Add one report.
  */
 async function addOne(report: IReportCreate): Promise<void> {
@@ -65,6 +72,7 @@ async function _delete(id: string): Promise<void> {
 
 export default {
   getAll,
+  getOne,
   addOne,
   updateOne,
   delete: _delete,

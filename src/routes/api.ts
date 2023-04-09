@@ -4,14 +4,16 @@ import jetValidator from "jet-validator";
 import Paths from "./constants/Paths";
 import User from "@src/models/User";
 import UserRoutes from "./UserRoutes";
-import CinemaRoutes from "./CinemaRoutes";
 import ReportRoutes from "./ReportRoutes";
 import report from "@src/models/Report";
 import projection from "@src/models/Projection";
 import ProjectionRoutes from "./ProjectionRoutes";
-import ScreeningEventRoutes from "./ScreeningEventRoutes";
 import screeningEvent from "@src/models/ScreeningEvent";
 import cinema from "@src/models/Cinema";
+import CinemaRoutes from "./CinemaRoutes";
+import ScreeningEventRoutes from "./ScreeningEventRoutes";
+import AuditoriumRoutes from "./AuditoriumRoutes";
+import Auditorium from "@src/models/Auditorium";
 
 // **** Variables **** //
 
@@ -24,6 +26,13 @@ const userRouter = Router();
 
 // Get all users
 userRouter.get(Paths.Users.Get, UserRoutes.getAll);
+
+// Get one user
+userRouter.get(
+  Paths.Users.GetOne,
+  validate(["id", "number", "params"]),
+  UserRoutes.getOne
+);
 
 // Add one user
 userRouter.post(
@@ -56,6 +65,13 @@ const cinemaRouter = Router();
 // Get all cinemas
 cinemaRouter.get(Paths.Cinemas.Get, CinemaRoutes.getAll);
 
+// Get one cinema
+cinemaRouter.get(
+  Paths.Cinemas.GetOne,
+  validate(["id", "string", "params"]),
+  CinemaRoutes.getOne
+);
+
 // Add one cinema
 cinemaRouter.post(
   Paths.Cinemas.Add,
@@ -73,7 +89,7 @@ cinemaRouter.put(
 // Delete one cinema
 cinemaRouter.delete(
   Paths.Cinemas.Delete,
-  validate(["id", "number", "params"]),
+  validate(["id", "string", "params"]),
   CinemaRoutes.delete
 );
 
@@ -86,6 +102,13 @@ const reportRouter = Router();
 
 // Get all reports
 reportRouter.get(Paths.Reports.Get, ReportRoutes.getAll);
+
+// Get one report
+reportRouter.get(
+  Paths.Reports.GetOne,
+  validate(["id", "string", "params"]),
+  ReportRoutes.getOne
+);
 
 // Add one report
 reportRouter.post(
@@ -104,7 +127,7 @@ reportRouter.put(
 // Delete one report
 reportRouter.delete(
   Paths.Reports.Delete,
-  validate(["id", "number", "params"]),
+  validate(["id", "string", "params"]),
   ReportRoutes.delete
 );
 
@@ -117,6 +140,13 @@ const projectionRouter = Router();
 
 // Get all projections
 projectionRouter.get(Paths.Projections.Get, ProjectionRoutes.getAll);
+
+// Get one projection
+projectionRouter.get(
+  Paths.Projections.GetOne,
+  validate(["id", "string", "params"]),
+  ProjectionRoutes.getOne
+);
 
 // Add one projection
 projectionRouter.post(
@@ -135,7 +165,7 @@ projectionRouter.put(
 // Delete one projection
 projectionRouter.delete(
   Paths.Projections.Delete,
-  validate(["id", "number", "params"]),
+  validate(["id", "string", "params"]),
   ProjectionRoutes.delete
 );
 
@@ -150,6 +180,13 @@ const screeningEventRouter = Router();
 screeningEventRouter.get(
   Paths.ScreeningEvents.Get,
   ScreeningEventRoutes.getAll
+);
+
+// Get one screeningEvent
+screeningEventRouter.get(
+  Paths.ScreeningEvents.GetOne,
+  validate(["id", "string", "params"]),
+  ScreeningEventRoutes.getOne
 );
 
 // Add one screeningEvent
@@ -169,12 +206,50 @@ screeningEventRouter.put(
 // Delete one screeningEvent
 screeningEventRouter.delete(
   Paths.ScreeningEvents.Delete,
-  validate(["id", "number", "params"]),
+  validate(["id", "string", "params"]),
   ScreeningEventRoutes.delete
 );
 
 // Add ScreeningEventsRouter
 apiRouter.use(Paths.ScreeningEvents.Base, screeningEventRouter);
+
+// ** Add ScreeningEventRouter ** //
+
+const auditoriumRouter = Router();
+
+// Get all auditoriums
+auditoriumRouter.get(Paths.Auditoriums.Get, AuditoriumRoutes.getAll);
+
+// Get one auditorium
+auditoriumRouter.get(
+  Paths.Auditoriums.GetOne,
+  validate(["id", "string", "params"]),
+  AuditoriumRoutes.getOne
+);
+
+// Add one auditorium
+auditoriumRouter.post(
+  Paths.Auditoriums.Add,
+  validate(["auditorium", Auditorium.isAuditorium]),
+  AuditoriumRoutes.add
+);
+
+// Update one auditorium
+auditoriumRouter.put(
+  Paths.Auditoriums.Update,
+  validate(["auditorium", Auditorium.isAuditorium]),
+  AuditoriumRoutes.update
+);
+
+// Delete one auditorium
+auditoriumRouter.delete(
+  Paths.Auditoriums.Delete,
+  validate(["id", "string", "params"]),
+  AuditoriumRoutes.delete
+);
+
+// Add AuditoriumsRouter
+apiRouter.use(Paths.Auditoriums.Base, auditoriumRouter);
 
 // **** Export default **** //
 

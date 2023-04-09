@@ -6,8 +6,6 @@ import Projection, {
 } from "@src/models/Projection";
 import ProjectionRepo from "@src/repos/ProjectionRepo";
 import ProjectionSchema from "@src/schemas/ProjectionSchema";
-import ScreeningEvent from "@src/models/ScreeningEvent";
-import ScreeningEventRepo from "@src/repos/ScreeningEventRepo";
 import { SCREENING_EVENT_INVALID_ERR } from "./ScreeningEventService";
 
 // **** Variables **** //
@@ -22,6 +20,13 @@ export const PROJECTION_INVALID_RR = "Projection not found";
  */
 function getAll(): Promise<IProjection[]> {
   return ProjectionRepo.getAll();
+}
+
+/**
+ * Get one projections.
+ */
+function getOne(id: string): Promise<IProjection | null> {
+  return ProjectionRepo.getOne(id);
 }
 
 /**
@@ -74,6 +79,7 @@ async function _delete(id: string): Promise<void> {
 
 export default {
   getAll,
+  getOne,
   addOne,
   updateOne,
   delete: _delete,
