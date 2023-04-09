@@ -109,8 +109,17 @@ function isAuditorium(arg: unknown): boolean {
     !!arg &&
     typeof arg === "object" &&
     "sound" in arg &&
+    typeof arg["sound"] === "string" &&
     "screen" in arg &&
-    "seats" in arg
+    typeof arg["screen"] === "string" &&
+    "seats" in arg &&
+    typeof arg["seats"] === "number" &&
+    "attributes" in arg &&
+    Array.isArray(arg["attributes"]) &&
+    "projectors" in arg &&
+    Array.isArray(arg["projectors"]) &&
+    "images" in arg &&
+    Array.isArray(arg["images"])
   );
 }
 

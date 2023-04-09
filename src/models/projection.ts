@@ -71,16 +71,27 @@ function isProjection(arg: unknown): boolean {
     !!arg &&
     typeof arg === "object" &&
     "title" in arg &&
+    typeof arg["title"] === "string" &&
     "text" in arg &&
+    typeof arg["text"] === "string" &&
     "date" in arg &&
+    typeof arg["date"] === "string" &&
     "tmdb" in arg &&
+    typeof arg["tmdb"] === "string" &&
     "black" in arg &&
+    typeof arg["black"] === "string" &&
     "agent" in arg &&
+    typeof arg["agent"] === "string" &&
     "images" in arg &&
+    typeof arg["images"] === "string" &&
     "reportRefs" in arg &&
+    Array.isArray(arg["reportRefs"]) &&
     "cinemaRef" in arg &&
+    typeof arg["cinemaRef"] === "string" &&
     "eventRef" in arg &&
-    "auditoriumRef" in arg
+    typeof arg["eventRef"] === "string" &&
+    "auditoriumRef" in arg &&
+    typeof arg["auditoriumRef"] === "string"
   );
 }
 

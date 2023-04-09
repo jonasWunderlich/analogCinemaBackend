@@ -61,11 +61,17 @@ function isReport(arg: unknown): boolean {
     !!arg &&
     typeof arg === "object" &&
     "date" in arg &&
+    typeof arg["date"] === "string" &&
     "images" in arg &&
+    Array.isArray(arg["images"]) &&
     "auditoriumRef" in arg &&
+    typeof arg["auditoriumRef"] === "string" &&
     "projectionRef" in arg &&
+    typeof arg["projectionRef"] === "string" &&
     "eventRef" in arg &&
-    "cinemaRef" in arg
+    typeof arg["eventRef"] === "string" &&
+    "cinemaRef" in arg &&
+    typeof arg["cinemaRef"] === "string"
   );
 }
 

@@ -82,15 +82,25 @@ function isScreeningEvent(arg: unknown): boolean {
     !!arg &&
     typeof arg === "object" &&
     "start" in arg &&
+    typeof arg["start"] === "string" &&
     "end" in arg &&
+    typeof arg["end"] === "string" &&
     "type" in arg &&
+    typeof arg["type"] === "string" &&
     "street" in arg &&
+    typeof arg["street"] === "string" &&
     "postcode" in arg &&
+    typeof arg["postcode"] === "string" &&
     "city" in arg &&
+    typeof arg["city"] === "string" &&
     "mail" in arg &&
+    typeof arg["mail"] === "string" &&
     "phone" in arg &&
+    typeof arg["phone"] === "string" &&
     "linkHomepage" in arg &&
-    "linkProgram" in arg
+    typeof arg["linkHomepage"] === "string" &&
+    "linkProgram" in arg &&
+    typeof arg["linkProgram"] === "string"
   );
 }
 

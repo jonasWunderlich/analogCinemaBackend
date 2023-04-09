@@ -75,21 +75,37 @@ function isCinema(arg: unknown): boolean {
     !!arg &&
     typeof arg === "object" &&
     "title" in arg &&
+    typeof arg["title"] === "string" &&
     "geoCoordinates" in arg &&
+    Array.isArray(arg["title"]) &&
     "text" in arg &&
+    typeof arg["text"] === "string" &&
     "street" in arg &&
+    typeof arg["street"] === "string" &&
     "postcode" in arg &&
+    typeof arg["postcode"] === "string" &&
     "city" in arg &&
+    typeof arg["city"] === "string" &&
     "mail" in arg &&
+    typeof arg["mail"] === "string" &&
     "phone" in arg &&
+    typeof arg["phone"] === "string" &&
     "linkHomepage" in arg &&
+    typeof arg["linkHomepage"] === "string" &&
     "linkProgram" in arg &&
+    typeof arg["linkProgram"] === "string" &&
     "linkOpeningHours" in arg &&
+    typeof arg["linkOpeningHours"] === "string" &&
     "images" in arg &&
+    Array.isArray(arg["images"]) &&
     "auditoriumRefs" in arg &&
+    Array.isArray(arg["auditoriumRefs"]) &&
     "projectionRefs" in arg &&
+    Array.isArray(arg["projectionRefs"]) &&
     "reportRefs" in arg &&
-    "eventRefs" in arg
+    Array.isArray(arg["reportRefs"]) &&
+    "eventRefs" in arg &&
+    Array.isArray(arg["eventRefs"])
   );
 }
 
