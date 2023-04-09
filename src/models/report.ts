@@ -1,81 +1,56 @@
 // **** Variables **** //
 
+import { randomUUID } from "crypto";
+import { CommonEntity } from "./common";
+
 const INVALID_CONSTRUCTOR_PARAM =
   "nameOrObj arg must a string or an " +
   "object with the appropriate report keys.";
 
-export interface Report {
-  id: string;
-  createdAt: string;
-  lastModifiedAt: string;
+export interface IReportCreate {
   title: string;
-  text: string;
-
+  text?: string;
   date: string;
   images?: string[];
-
   eventRef?: string;
   projectionRef?: string;
   cinemaRef?: string;
   auditoriumRef?: string;
 }
+export interface IReport extends CommonEntity, IReportCreate {}
 
 // **** Functions **** //
 
 /**
  * Create new Report.
  */
-function new_(
-  title?: string,
-  createdAt?: string,
-  lastModifiedAt?: string,
-  date?: string,
-  text?: string,
-  images?: string[],
-  auditoriumRef?: string,
-  projectionRef?: string,
-  eventRef?: string,
-  cinemaRef?: string,
-  id?: string // id last cause usually set by db
-  // id?: number, // id last cause usually set by db
-): Report {
+function new_(report: IReportCreate): IReport {
   return {
-    // id: id ?? -1,
-    id: id ?? "",
-    date: date ?? "",
-    title: title ?? "",
-    createdAt: createdAt ?? "",
-    lastModifiedAt: lastModifiedAt ?? "",
-    text: text ?? "",
-    images: images ?? [],
-    auditoriumRef: auditoriumRef ?? "",
-    projectionRef: projectionRef ?? "",
-    eventRef: eventRef ?? "",
-    cinemaRef: cinemaRef ?? "",
+    id: randomUUID(),
+    createdAt: new Date().toJSON(),
+    lastModifiedAt: new Date().toJSON(),
+    date: report.date ?? new Date().toJSON(),
+    title: report.title ?? "",
+    text: report.text ?? "",
+    images: report.images ?? [],
+    auditoriumRef: report.auditoriumRef ?? "",
+    projectionRef: report.projectionRef ?? "",
+    eventRef: report.eventRef ?? "",
+    cinemaRef: report.cinemaRef ?? "",
   };
 }
 
 /**
  * Get report instance from object.
  */
-function from(param: object): Report {
+function from(param: object): IReport {
   // Check is report
   if (!isReport(param)) {
     throw new Error(INVALID_CONSTRUCTOR_PARAM);
   }
   // Get report instance
-  const p = param as Report;
-  return new_(
-    p.title,
-    p.date,
-    p.createdAt,
-    p.lastModifiedAt,
-    p.text,
-    p.images,
-    p.eventRef,
-    p.projectionRef,
-    p.cinemaRef
-  );
+  const p = param as IReportCreate;
+  return new_(p);
 }
 
 /**
@@ -85,15 +60,9 @@ function isReport(arg: unknown): boolean {
   return (
     !!arg &&
     typeof arg === "object" &&
-    "id" in arg &&
     "date" in arg &&
-    "createdAt" in arg &&
-    "lastModifiedAt" in arg &&
-    "title" in arg &&
-    "text" in arg &&
     "images" in arg &&
     "auditoriumRef" in arg &&
-    "cinemaRef" in arg &&
     "projectionRef" in arg &&
     "eventRef" in arg &&
     "cinemaRef" in arg

@@ -1,5 +1,5 @@
 import orm from "./MockOrm";
-import { Projection } from "@src/models/projection";
+import { IProjection, IProjectionCreate } from "@src/models/Projection";
 import { randomUUID } from "crypto";
 
 // **** Functions **** //
@@ -7,7 +7,7 @@ import { randomUUID } from "crypto";
 /**
  * Get one projection.
  */
-async function getOne(id: string): Promise<Projection | null> {
+async function getOne(id: string): Promise<IProjection | null> {
   const db = await orm.openDb();
   for (const projection of db.projections) {
     if (projection.id === id) {
@@ -33,7 +33,7 @@ async function persists(id: string): Promise<boolean> {
 /**
  * Get all projections.
  */
-async function getAll(): Promise<Projection[]> {
+async function getAll(): Promise<IProjection[]> {
   const db = await orm.openDb();
   return db.projections;
 }
@@ -41,9 +41,8 @@ async function getAll(): Promise<Projection[]> {
 /**
  * Add one projection.
  */
-async function add(projection: Projection): Promise<void> {
+async function add(projection: IProjectionCreate): Promise<void> {
   const db = await orm.openDb();
-  projection.id = randomUUID();
   db.projections.push(projection);
   return orm.saveDb(db);
 }
@@ -51,7 +50,7 @@ async function add(projection: Projection): Promise<void> {
 /**
  * Update a projection.
  */
-async function update(projection: Projection): Promise<void> {
+async function update(projection: IProjection): Promise<void> {
   const db = await orm.openDb();
   for (let i = 0; i < db.projections.length; i++) {
     if (db.projections[i].id === projection.id) {

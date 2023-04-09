@@ -1,3 +1,6 @@
+import { randomUUID } from "crypto";
+import { CommonEntity } from "./common";
+
 export const AUDITORIUM_ATTRIBUTES = [
   { id: "climate", name: "Klimaanlage" },
   { id: "pair-seats", name: "Pärchensitze" },
@@ -41,18 +44,80 @@ export const SOUND_OPTIONS = [
   { id: "7.1", name: "7.1" },
 ];
 
-export interface Auditorium {
-  id: string;
-  createdAt: string;
-  lastModifiedAt: string;
+const INVALID_CONSTRUCTOR_PARAM =
+  "nameOrObj arg must a string or an " +
+  "object with the appropriate report keys.";
+
+export interface IAuditoriumCreate {
   title: string;
+  text?: string;
+
   attributes: string[];
   projectors: string[];
   screen: string;
   seats: number;
   sound: string[];
-  text: string;
   images: string[];
+
   cinemaRef?: string;
   reportRefs?: string[];
 }
+
+export interface IAuditorium extends CommonEntity, IAuditoriumCreate {}
+
+// **** Functions **** //
+
+/**
+ * Create new Auditorium.
+ */
+function new_(auditorium: IAuditoriumCreate): IAuditorium {
+  return {
+    id: randomUUID(),
+    createdAt: new Date().toJSON(),
+    lastModifiedAt: new Date().toJSON(),
+    title: auditorium.title ?? "",
+    text: auditorium.text ?? "",
+    screen: auditorium.screen ?? "",
+    images: auditorium.images ?? [],
+    sound: auditorium.sound ?? [],
+    seats: auditorium.seats ?? 0,
+    attributes: auditorium.attributes ?? [],
+    projectors: auditorium.projectors ?? [],
+    reportRefs: auditorium.reportRefs ?? [],
+    cinemaRef: auditorium.cinemaRef ?? "",
+  };
+}
+
+/**
+ * Get report instance from object.
+ */
+function from(param: object): IAuditorium {
+  // Check is report
+  if (!isAuditorium(param)) {
+    throw new Error(INVALID_CONSTRUCTOR_PARAM);
+  }
+  // Get report instance
+  const p = param as IAuditoriumCreate;
+  return new_(p);
+}
+
+/**
+ * See if the param meets criteria to be a report.
+ */
+function isAuditorium(arg: unknown): boolean {
+  return (
+    !!arg &&
+    typeof arg === "object" &&
+    "sound" in arg &&
+    "screen" in arg &&
+    "seats" in arg
+  );
+}
+
+// **** Export default **** //
+
+export default {
+  new: new_,
+  from,
+  isAuditorium,
+} as const;

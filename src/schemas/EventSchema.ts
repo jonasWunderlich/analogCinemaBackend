@@ -1,17 +1,16 @@
-import { ScreeningEvent } from "@src/models/screening-event";
+import {
+  IScreeningEvent,
+  IScreeningEventCreate,
+} from "@src/models/ScreeningEvent";
 import Joi from "joi";
 
-/**
- * Delete one screeningEvent.
- */
-async function validateEvent(screeningEvent: ScreeningEvent): Promise<any> {
-  return ScreeningEventSchema.validateAsync(screeningEvent);
-}
-
-export const ScreeningEventSchema = Joi.object({
+const CommonSchema = {
   id: Joi.string().min(3).max(50).required(),
   createdAt: Joi.string().min(3).max(50),
   lastModifiedAt: Joi.string().min(3).max(50),
+};
+
+const ScreeningEventSchema = {
   title: Joi.string().min(3).max(50).required(),
   start: Joi.string().min(3).max(50),
   end: Joi.string().min(3).max(50).allow(""),
@@ -29,10 +28,38 @@ export const ScreeningEventSchema = Joi.object({
   cinemaRefs: Joi.array(),
   reportRefs: Joi.array(),
   projectionRefs: Joi.array(),
+};
+
+const ScreeningEventCreateSchema = Joi.object({
+  ...ScreeningEventSchema,
 });
+
+const ScreeningEventUpdateSchema = Joi.object({
+  ...CommonSchema,
+  ...ScreeningEventSchema,
+});
+
+/**
+ * Validate created report.
+ */
+async function validateCreateScreeningEvent(
+  screeningEvent: IScreeningEventCreate
+): Promise<any> {
+  return ScreeningEventCreateSchema.validateAsync(screeningEvent);
+}
+
+/**
+ * Validate updated screeningEvent.
+ */
+async function validateUpdateScreeningEvent(
+  screeningEvent: IScreeningEvent
+): Promise<any> {
+  return ScreeningEventUpdateSchema.validateAsync(screeningEvent);
+}
 
 // **** Export default **** //
 
 export default {
-  validateEvent,
+  validateCreateScreeningEvent,
+  validateUpdateScreeningEvent,
 } as const;

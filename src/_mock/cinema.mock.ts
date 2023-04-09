@@ -13,10 +13,10 @@ import {
 } from "./constants";
 import { mockAuditoriums } from "./auditorium.mock";
 import { randomUUID } from "crypto";
-import { Cinema } from "@src/models/cinema";
+import { ICinema } from "@src/models/Cinema";
 import { DeepPartial } from "@src/models/deep-partial";
 
-const CINEMA_DEFAULT_VALUES: Cinema = {
+const CINEMA_DEFAULT_VALUES: ICinema = {
   id: "0",
   createdAt: "2020-10-30T09:32:19.196720000+0000",
   lastModifiedAt: "2020-11-30T10:32:19.196720000+0000",
@@ -49,9 +49,9 @@ const CINEMA_DEFAULT_VALUES: Cinema = {
  *
  * @example mockCinema({name: 'Luru Kino'})
  */
-export function mockCinema(cinemaValues: DeepPartial<Cinema>): Cinema {
+export function mockCinema(cinemaValues: DeepPartial<ICinema>): ICinema {
   const id = randomUUID();
-  const defaultValues: Cinema = {
+  const defaultValues: ICinema = {
     id,
     createdAt: CINEMA_DEFAULT_VALUES.createdAt,
     lastModifiedAt: CINEMA_DEFAULT_VALUES.lastModifiedAt,
@@ -76,7 +76,7 @@ export function mockCinema(cinemaValues: DeepPartial<Cinema>): Cinema {
   return {
     ...defaultValues,
     ...cinemaValues,
-  } as Cinema;
+  } as ICinema;
 }
 
 /**
@@ -89,8 +89,8 @@ export function mockCinema(cinemaValues: DeepPartial<Cinema>): Cinema {
  *
  * @example mockCinemas(10)
  */
-export function mockCinemas(amount: number): Cinema[] {
-  const cinemas: Cinema[] = [];
+export function mockCinemas(amount: number): ICinema[] {
+  const cinemas: ICinema[] = [];
   for (let i = 0; i < amount; i++) {
     cinemas.push(mockCinema({}));
   }

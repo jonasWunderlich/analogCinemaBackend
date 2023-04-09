@@ -5,12 +5,12 @@ import { mockCinemas } from "@src/_mock/cinema.mock";
 import { mockScreeningEvents } from "@src/_mock/event.mock";
 import { mockProjections } from "@src/_mock/projection.mock";
 import { mockReports } from "@src/_mock/report.mocks";
-import { Auditorium } from "@src/models/auditorium";
-import { Cinema } from "@src/models/cinema";
-import { Projection } from "@src/models/projection";
-import { Report } from "@src/models/report";
+import { IAuditorium } from "@src/models/Auditorium";
+import { ICinema } from "@src/models/Cinema";
+import { IProjection } from "@src/models/Projection";
+import { IReport } from "@src/models/Report";
 import { ScreeningEventType } from "@src/models/sceening-event-type";
-import { ScreeningEvent } from "@src/models/screening-event";
+import { IScreeningEvent } from "@src/models/ScreeningEvent";
 import { mockNumber, getRandomSubarray } from "./mock-data";
 
 const MAX_CINEMAS = 50;
@@ -18,20 +18,20 @@ const MAX_EVENTS = 10;
 const MAX_REPORTS = 2;
 
 export interface ReferencedMockData {
-  cinemas: Cinema[];
-  auditoriums: Auditorium[];
-  screeningEvents: ScreeningEvent[];
-  projections: Projection[];
-  reports: Report[];
+  cinemas: ICinema[];
+  auditoriums: IAuditorium[];
+  screeningEvents: IScreeningEvent[];
+  projections: IProjection[];
+  reports: IReport[];
 }
 
 export function buildRefrencedApiMocks(): ReferencedMockData {
-  let allAuditoriums: Auditorium[] = [];
-  let allProjections: Projection[] = [];
-  let allReports: Report[] = [];
+  let allAuditoriums: IAuditorium[] = [];
+  let allProjections: IProjection[] = [];
+  let allReports: IReport[] = [];
 
   // CREATE CINEMAS
-  const allCinemas: Cinema[] = mockCinemas(MAX_CINEMAS);
+  const allCinemas: ICinema[] = mockCinemas(MAX_CINEMAS);
   // CREATE AUDITORIUMS FOR EACH CINEMA
   allCinemas.forEach((cinema) => {
     const cinemaAuditoriums = mockAuditoriums(mockNumber(1, 12), {

@@ -1,5 +1,5 @@
 import { DeepPartial } from "@src/models/deep-partial";
-import { Report } from "@src/models/report";
+import { IReport } from "@src/models/Report";
 import { pickRandom, randomDate, sortByISODate } from "../utilities/mock-data";
 import {
   MOCKED_CINEMA_IMAGES,
@@ -8,7 +8,7 @@ import {
 } from "./constants";
 import { randomUUID } from "crypto";
 
-const REPORT_DEFAULT_VALUES: Report = {
+const REPORT_DEFAULT_VALUES: IReport = {
   id: "0",
   createdAt: "2020-10-30T09:32:19.196720000+0000",
   lastModifiedAt: "2020-11-30T10:32:19.196720000+0000",
@@ -28,14 +28,14 @@ const REPORT_DEFAULT_VALUES: Report = {
  * Simple creation of Report that only needs the most basic information.
  * All data is filled with REPORT_DEFAULT_VALUES and mock values.
  *
- * @param reportValues: Partial<Report> data to overwrite default values
+ * @param reportValues: Partial<IReport> data to overwrite default values
  *
  * @example mockReport({name: 'Hofbauer Kongress'})
  */
-export function mockReport(reportValues: DeepPartial<Report>): Report {
+export function mockReport(reportValues: DeepPartial<IReport>): IReport {
   const id = randomUUID();
   const date = randomDate(new Date(), new Date(2023, 12, 0));
-  const defaultValues: Report = {
+  const defaultValues: IReport = {
     id,
     createdAt: REPORT_DEFAULT_VALUES.createdAt,
     lastModifiedAt: REPORT_DEFAULT_VALUES.lastModifiedAt,
@@ -47,7 +47,7 @@ export function mockReport(reportValues: DeepPartial<Report>): Report {
   return {
     ...defaultValues,
     ...reportValues,
-  } as Report;
+  } as IReport;
 }
 
 /**
@@ -63,9 +63,9 @@ export function mockReport(reportValues: DeepPartial<Report>): Report {
  */
 export function mockReports(
   amount: number,
-  reportValues: DeepPartial<Report>
-): Report[] {
-  const reports: Report[] = [];
+  reportValues: DeepPartial<IReport>
+): IReport[] {
+  const reports: IReport[] = [];
   for (let i = 0; i < amount; i++) {
     reports.push(mockReport({ ...reportValues }));
   }

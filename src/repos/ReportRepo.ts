@@ -1,13 +1,12 @@
-import { randomUUID } from "crypto";
 import orm from "./MockOrm";
-import { Report } from "@src/models/report";
+import { IReport, IReportCreate } from "@src/models/Report";
 
 // **** Functions **** //
 
 /**
  * Get one report.
  */
-async function getOne(id: string): Promise<Report | null> {
+async function getOne(id: string): Promise<IReport | null> {
   const db = await orm.openDb();
   for (const report of db.reports) {
     if (report.id === id) {
@@ -33,7 +32,7 @@ async function persists(id: string): Promise<boolean> {
 /**
  * Get all reports.
  */
-async function getAll(): Promise<Report[]> {
+async function getAll(): Promise<IReport[]> {
   const db = await orm.openDb();
   return db.reports;
 }
@@ -41,9 +40,8 @@ async function getAll(): Promise<Report[]> {
 /**
  * Add one report.
  */
-async function add(report: Report): Promise<void> {
+async function add(report: IReport): Promise<void> {
   const db = await orm.openDb();
-  report.id = randomUUID();
   db.reports.push(report);
   return orm.saveDb(db);
 }
@@ -51,7 +49,7 @@ async function add(report: Report): Promise<void> {
 /**
  * Update a report.
  */
-async function update(report: Report): Promise<void> {
+async function update(report: IReport): Promise<void> {
   const db = await orm.openDb();
   for (let i = 0; i < db.reports.length; i++) {
     if (db.reports[i].id === report.id) {

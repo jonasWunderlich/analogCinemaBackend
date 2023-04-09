@@ -1,13 +1,15 @@
 import orm from "./MockOrm";
-import { ScreeningEvent } from "@src/models/screening-event";
-import { randomUUID } from "crypto";
+import {
+  IScreeningEvent,
+  IScreeningEventCreate,
+} from "@src/models/ScreeningEvent";
 
 // **** Functions **** //
 
 /**
  * Get one screeningEvent.
  */
-async function getOne(id: string): Promise<ScreeningEvent | null> {
+async function getOne(id: string): Promise<IScreeningEvent | null> {
   const db = await orm.openDb();
   for (const screeningEvent of db.screeningEvents) {
     if (screeningEvent.id === id) {
@@ -33,7 +35,7 @@ async function persists(id: string): Promise<boolean> {
 /**
  * Get all screeningEvents.
  */
-async function getAll(): Promise<ScreeningEvent[]> {
+async function getAll(): Promise<IScreeningEvent[]> {
   const db = await orm.openDb();
   return db.screeningEvents;
 }
@@ -41,9 +43,8 @@ async function getAll(): Promise<ScreeningEvent[]> {
 /**
  * Add one screeningEvent.
  */
-async function add(screeningEvent: ScreeningEvent): Promise<void> {
+async function add(screeningEvent: IScreeningEvent): Promise<void> {
   const db = await orm.openDb();
-  screeningEvent.id = randomUUID();
   db.screeningEvents.push(screeningEvent);
   return orm.saveDb(db);
 }
@@ -51,7 +52,7 @@ async function add(screeningEvent: ScreeningEvent): Promise<void> {
 /**
  * Update a screeningEvent.
  */
-async function update(screeningEvent: ScreeningEvent): Promise<void> {
+async function update(screeningEvent: IScreeningEvent): Promise<void> {
   const db = await orm.openDb();
   for (let i = 0; i < db.screeningEvents.length; i++) {
     if (db.screeningEvents[i].id === screeningEvent.id) {

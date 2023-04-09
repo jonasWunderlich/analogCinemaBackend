@@ -1,17 +1,13 @@
-import { Cinema } from "@src/models/cinema";
+import { ICinema, ICinemaCreate } from "@src/models/Cinema";
 import Joi from "joi";
 
-/**
- * Delete one cinema.
- */
-async function validateCinema(cinema: Cinema): Promise<any> {
-  return CinemaSchema.validateAsync(cinema);
-}
+const CommonSchema = {
+  id: Joi.string().min(3).max(50).required(),
+  createdAt: Joi.string().min(3).max(50),
+  lastModifiedAt: Joi.string().min(3).max(50),
+};
 
-export const CinemaSchema = Joi.object({
-  id: Joi.string().min(3).max(40).required(),
-  createdAt: Joi.string().min(3).max(40),
-  lastModifiedAt: Joi.string().min(3).max(40),
+const CinemaSchema = {
   title: Joi.string().min(3).max(50).required(),
   geoCoordinates: Joi.array(),
   text: Joi.string().min(3).max(3000),
@@ -28,10 +24,33 @@ export const CinemaSchema = Joi.object({
   projectionRefs: Joi.array(),
   reportRefs: Joi.array(),
   eventRefs: Joi.array(),
+};
+
+const CinemaCreateSchema = Joi.object({
+  ...CinemaSchema,
 });
+
+const CinemaUpdateSchema = Joi.object({
+  ...CommonSchema,
+  ...CinemaSchema,
+});
+/**
+ * Validate created report.
+ */
+async function validateCreateCinema(cinema: ICinemaCreate): Promise<any> {
+  return CinemaCreateSchema.validateAsync(cinema);
+}
+
+/**
+ * Validate updated cinema.
+ */
+async function validateUpdateCinema(cinema: ICinema): Promise<any> {
+  return CinemaUpdateSchema.validateAsync(cinema);
+}
 
 // **** Export default **** //
 
 export default {
-  validateCinema,
+  validateCreateCinema,
+  validateUpdateCinema,
 } as const;

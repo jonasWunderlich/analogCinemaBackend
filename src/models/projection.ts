@@ -1,9 +1,9 @@
-export interface Projection {
-  id: string;
-  createdAt?: string;
-  lastModifiedAt?: string;
+import { randomUUID } from "crypto";
+import { CommonEntity } from "./common";
+
+export interface IProjectionCreate extends CommonEntity {
   title: string;
-  text: string;
+  text?: string;
 
   date: string;
   images?: string[];
@@ -18,6 +18,8 @@ export interface Projection {
   auditoriumRef?: string;
 }
 
+export interface IProjection extends CommonEntity, IProjectionCreate {}
+
 // **** Variables **** //
 
 const INVALID_CONSTRUCTOR_PARAM =
@@ -29,67 +31,36 @@ const INVALID_CONSTRUCTOR_PARAM =
 /**
  * Create new Projection.
  */
-function new_(
-  createdAt?: string,
-  lastModifiedAt?: string,
-  title?: string,
-  text?: string,
-  date?: string,
-  tmdb?: string,
-  black?: boolean,
-  agent?: string,
-  images?: string[],
-  reportRefs?: string[],
-  cinemaRef?: string,
-  eventRef?: string,
-  auditoriumRef?: string,
-  // id?: number, // id last cause usually set by db
-  id?: string // id last cause usually set by db
-): Projection {
+function new_(input: IProjectionCreate): IProjection {
   return {
-    // id: id ?? -1,
-    id: id ?? "",
-    title: title ?? "",
-    createdAt: createdAt ?? "",
-    lastModifiedAt: lastModifiedAt ?? "",
-    text: text ?? "",
-    date: date ?? "",
-    tmdb: tmdb ?? "",
-    black: black ?? false,
-    agent: agent ?? "",
-    images: images ?? [],
-    reportRefs: reportRefs ?? [],
-    cinemaRef: cinemaRef ?? "",
-    eventRef: eventRef ?? "",
-    auditoriumRef: auditoriumRef ?? "",
+    id: randomUUID(),
+    createdAt: new Date().toJSON(),
+    lastModifiedAt: new Date().toJSON(),
+    title: input.title ?? "",
+    text: input.text ?? "",
+    date: input.date ?? "",
+    tmdb: input.tmdb ?? "",
+    black: input.black ?? false,
+    agent: input.agent ?? "",
+    images: input.images ?? [],
+    reportRefs: input.reportRefs ?? [],
+    cinemaRef: input.cinemaRef ?? "",
+    eventRef: input.eventRef ?? "",
+    auditoriumRef: input.auditoriumRef ?? "",
   };
 }
 
 /**
  * Get projection instance from object.
  */
-function from(param: object): Projection {
+function from(param: object): IProjection {
   // Check is projection
   if (!isProjection(param)) {
     throw new Error(INVALID_CONSTRUCTOR_PARAM);
   }
   // Get projection instance
-  const p = param as Projection;
-  return new_(
-    p.createdAt,
-    p.lastModifiedAt,
-    p.title,
-    p.text,
-    p.date,
-    p.tmdb,
-    p.black,
-    p.agent,
-    p.images,
-    p.reportRefs,
-    p.cinemaRef,
-    p.eventRef,
-    p.auditoriumRef
-  );
+  const p = param as IProjectionCreate;
+  return new_(p);
 }
 
 /**
@@ -99,9 +70,6 @@ function isProjection(arg: unknown): boolean {
   return (
     !!arg &&
     typeof arg === "object" &&
-    "id" in arg &&
-    "createdAt" in arg &&
-    "lastModifiedAt" in arg &&
     "title" in arg &&
     "text" in arg &&
     "date" in arg &&

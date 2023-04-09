@@ -6,12 +6,12 @@ import User from "@src/models/User";
 import UserRoutes from "./UserRoutes";
 import CinemaRoutes from "./CinemaRoutes";
 import ReportRoutes from "./ReportRoutes";
-import cinema from "@src/models/cinema";
-import report from "@src/models/report";
-import projection from "@src/models/projection";
+import report from "@src/models/Report";
+import projection from "@src/models/Projection";
 import ProjectionRoutes from "./ProjectionRoutes";
 import ScreeningEventRoutes from "./ScreeningEventRoutes";
-import screeningEvent from "@src/models/screening-event";
+import screeningEvent from "@src/models/ScreeningEvent";
+import cinema from "@src/models/Cinema";
 
 // **** Variables **** //
 

@@ -1,6 +1,6 @@
 import { DeepPartial } from "@src/models/deep-partial";
 import { ScreeningEventType } from "@src/models/sceening-event-type";
-import { ScreeningEvent } from "@src/models/screening-event";
+import { IScreeningEvent } from "@src/models/ScreeningEvent";
 import {
   addDays,
   CHAR_NUMBERS,
@@ -19,7 +19,7 @@ import {
 } from "./constants";
 import { randomUUID } from "crypto";
 
-const SCREENING_EVENT_DEFAULT_VALUES: ScreeningEvent = {
+const SCREENING_EVENT_DEFAULT_VALUES: IScreeningEvent = {
   id: "0",
   createdAt: "2020-10-30T09:32:19.196720000+0000",
   lastModifiedAt: "2020-11-30T10:32:19.196720000+0000",
@@ -49,8 +49,8 @@ const SCREENING_EVENT_DEFAULT_VALUES: ScreeningEvent = {
  * @example mockScreeningEvent({name: 'Hofbauer Kongress'})
  */
 export function mockScreeningEvent(
-  eventValues: DeepPartial<ScreeningEvent>
-): ScreeningEvent {
+  eventValues: DeepPartial<IScreeningEvent>
+): IScreeningEvent {
   const id = randomUUID();
   const start = randomDate(new Date(), new Date(2023, 12, 0));
   const eventType = pickRandom([
@@ -59,7 +59,7 @@ export function mockScreeningEvent(
     ScreeningEventType.SINGLE,
   ]);
   const eventLength = mockNumber(1, 14);
-  const defaultValues: ScreeningEvent = {
+  const defaultValues: IScreeningEvent = {
     id,
     createdAt: SCREENING_EVENT_DEFAULT_VALUES.createdAt,
     lastModifiedAt: SCREENING_EVENT_DEFAULT_VALUES.lastModifiedAt,
@@ -87,7 +87,7 @@ export function mockScreeningEvent(
   return {
     ...defaultValues,
     ...eventValues,
-  } as ScreeningEvent;
+  } as IScreeningEvent;
 }
 
 /**
@@ -100,8 +100,8 @@ export function mockScreeningEvent(
  *
  * @example mockScreeningEvents(10)
  */
-export function mockScreeningEvents(amount: number): ScreeningEvent[] {
-  const events: ScreeningEvent[] = [];
+export function mockScreeningEvents(amount: number): IScreeningEvent[] {
+  const events: IScreeningEvent[] = [];
   for (let i = 0; i < amount; i++) {
     events.push(mockScreeningEvent({}));
   }

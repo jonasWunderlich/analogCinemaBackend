@@ -2,7 +2,7 @@ import HttpStatusCodes from "@src/constants/HttpStatusCodes";
 
 import AuditoriumService from "@src/services/AuditoriumService";
 import { IReq, IRes } from "./types/express/misc";
-import { Auditorium } from "@src/models/auditorium";
+import { IAuditorium, IAuditoriumCreate } from "@src/models/Auditorium";
 
 // **** Functions **** //
 
@@ -17,7 +17,7 @@ async function getAll(_: IReq, res: IRes) {
 /**
  * Add one auditorium.
  */
-async function add(req: IReq<{ auditorium: Auditorium }>, res: IRes) {
+async function add(req: IReq<{ auditorium: IAuditoriumCreate }>, res: IRes) {
   const { auditorium } = req.body;
   await AuditoriumService.addOne(auditorium);
   return res.status(HttpStatusCodes.CREATED).end();
@@ -26,7 +26,7 @@ async function add(req: IReq<{ auditorium: Auditorium }>, res: IRes) {
 /**
  * Update one auditorium.
  */
-async function update(req: IReq<{ auditorium: Auditorium }>, res: IRes) {
+async function update(req: IReq<{ auditorium: IAuditorium }>, res: IRes) {
   const { auditorium } = req.body;
   await AuditoriumService.updateOne(auditorium);
   return res.status(HttpStatusCodes.OK).end();

@@ -1,13 +1,12 @@
 import orm from "./MockOrm";
-import { Cinema } from "@src/models/cinema";
-import { randomUUID } from "crypto";
+import { ICinema } from "@src/models/Cinema";
 
 // **** Functions **** //
 
 /**
  * Get one cinema.
  */
-async function getOne(id: string): Promise<Cinema | null> {
+async function getOne(id: string): Promise<ICinema | null> {
   const db = await orm.openDb();
   for (const cinema of db.cinemas) {
     if (cinema.id === id) {
@@ -33,7 +32,7 @@ async function persists(id: string): Promise<boolean> {
 /**
  * Get all cinemas.
  */
-async function getAll(): Promise<Cinema[]> {
+async function getAll(): Promise<ICinema[]> {
   const db = await orm.openDb();
   return db.cinemas;
 }
@@ -41,9 +40,8 @@ async function getAll(): Promise<Cinema[]> {
 /**
  * Add one cinema.
  */
-async function add(cinema: Cinema): Promise<void> {
+async function add(cinema: ICinema): Promise<void> {
   const db = await orm.openDb();
-  cinema.id = randomUUID();
   db.cinemas.push(cinema);
   return orm.saveDb(db);
 }
@@ -51,7 +49,7 @@ async function add(cinema: Cinema): Promise<void> {
 /**
  * Update a cinema.
  */
-async function update(cinema: Cinema): Promise<void> {
+async function update(cinema: ICinema): Promise<void> {
   const db = await orm.openDb();
   for (let i = 0; i < db.cinemas.length; i++) {
     if (db.cinemas[i].id === cinema.id) {

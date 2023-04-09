@@ -1,7 +1,12 @@
 import { RouteError } from "@src/other/classes";
 import HttpStatusCodes from "@src/constants/HttpStatusCodes";
-import { Auditorium } from "@src/models/auditorium";
+import Auditorium, {
+  IAuditorium,
+  IAuditoriumCreate,
+} from "@src/models/Auditorium";
 import AuditoriumRepo from "@src/repos/AuditoriumRepo";
+import AuditoriumSchema from "@src/schemas/AuditoriumSchema";
+import { SCREENING_EVENT_INVALID_ERR } from "./ScreeningEventService";
 
 // **** Variables **** //
 
@@ -12,21 +17,30 @@ export const SCREENING_EVENT_NOT_FOUND_ERR = "Auditorium not found";
 /**
  * Get all auditoriums.
  */
-function getAll(): Promise<Auditorium[]> {
+function getAll(): Promise<IAuditorium[]> {
   return AuditoriumRepo.getAll();
 }
 
 /**
  * Add one auditorium.
  */
-function addOne(auditorium: Auditorium): Promise<void> {
-  return AuditoriumRepo.add(auditorium);
+async function addOne(auditorium: IAuditoriumCreate): Promise<void> {
+  const validate = (await AuditoriumSchema.validateCreateAuditorium(
+    auditorium
+  )) as Promise<void>;
+  if (!validate) {
+    throw new RouteError(
+      HttpStatusCodes.BAD_REQUEST,
+      SCREENING_EVENT_INVALID_ERR
+    );
+  }
+  return AuditoriumRepo.add(Auditorium.new(auditorium));
 }
 
 /**
  * Update one auditorium.
  */
-async function updateOne(auditorium: Auditorium): Promise<void> {
+async function updateOne(auditorium: IAuditorium): Promise<void> {
   const persists = await AuditoriumRepo.persists(auditorium.id);
   if (!persists) {
     throw new RouteError(

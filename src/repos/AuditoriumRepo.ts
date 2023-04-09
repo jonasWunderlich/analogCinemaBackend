@@ -1,5 +1,5 @@
 import orm from "./MockOrm";
-import { Auditorium } from "@src/models/auditorium";
+import { IAuditorium, IAuditoriumCreate } from "@src/models/Auditorium";
 import { randomUUID } from "crypto";
 
 // **** Functions **** //
@@ -7,7 +7,7 @@ import { randomUUID } from "crypto";
 /**
  * Get one auditorium.
  */
-async function getOne(id: string): Promise<Auditorium | null> {
+async function getOne(id: string): Promise<IAuditorium | null> {
   const db = await orm.openDb();
   for (const auditorium of db.auditoriums) {
     if (auditorium.id === id) {
@@ -33,7 +33,7 @@ async function persists(id: string): Promise<boolean> {
 /**
  * Get all auditoriums.
  */
-async function getAll(): Promise<Auditorium[]> {
+async function getAll(): Promise<IAuditorium[]> {
   const db = await orm.openDb();
   return db.auditoriums;
 }
@@ -41,9 +41,8 @@ async function getAll(): Promise<Auditorium[]> {
 /**
  * Add one auditorium.
  */
-async function add(auditorium: Auditorium): Promise<void> {
+async function add(auditorium: IAuditoriumCreate): Promise<void> {
   const db = await orm.openDb();
-  auditorium.id = randomUUID();
   db.auditoriums.push(auditorium);
   return orm.saveDb(db);
 }
@@ -51,7 +50,7 @@ async function add(auditorium: Auditorium): Promise<void> {
 /**
  * Update a auditorium.
  */
-async function update(auditorium: Auditorium): Promise<void> {
+async function update(auditorium: IAuditorium): Promise<void> {
   const db = await orm.openDb();
   for (let i = 0; i < db.auditoriums.length; i++) {
     if (db.auditoriums[i].id === auditorium.id) {

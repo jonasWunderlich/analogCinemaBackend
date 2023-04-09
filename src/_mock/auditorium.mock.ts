@@ -1,4 +1,4 @@
-import { Auditorium } from "@src/models/auditorium";
+import { IAuditorium } from "@src/models/Auditorium";
 import { DeepPartial } from "@src/models/deep-partial";
 import {
   getRandomSubarray,
@@ -7,7 +7,7 @@ import {
 } from "../utilities/mock-data";
 import { randomUUID } from "crypto";
 
-const AUDITORIUM_DEFAULT_VALUES: Auditorium = {
+const AUDITORIUM_DEFAULT_VALUES: IAuditorium = {
   id: "auditorium0000",
   createdAt: "2020-10-30T09:32:19.196720000+0000",
   lastModifiedAt: "2020-11-30T10:32:19.196720000+0000",
@@ -40,10 +40,10 @@ const AUDITORIUM_DEFAULT_VALUES: Auditorium = {
  * @example mockAuditorium({name: 'Luru Kinosaal'})
  */
 export function mockAuditorium(
-  auditoriumValues: DeepPartial<Auditorium>
-): Auditorium {
+  auditoriumValues: DeepPartial<IAuditorium>
+): IAuditorium {
   const id = randomUUID();
-  const defaultValues: Auditorium = {
+  const defaultValues: IAuditorium = {
     id,
     createdAt: AUDITORIUM_DEFAULT_VALUES.createdAt,
     lastModifiedAt: AUDITORIUM_DEFAULT_VALUES.lastModifiedAt,
@@ -69,7 +69,7 @@ export function mockAuditorium(
   return {
     ...defaultValues,
     ...auditoriumValues,
-  } as Auditorium;
+  } as IAuditorium;
 }
 
 /**
@@ -84,9 +84,9 @@ export function mockAuditorium(
  */
 export function mockAuditoriums(
   amount: number,
-  value: Partial<Auditorium> = {}
-): Auditorium[] {
-  const auditoriums: Auditorium[] = [];
+  value: Partial<IAuditorium> = {}
+): IAuditorium[] {
+  const auditoriums: IAuditorium[] = [];
   for (let i = 0; i < amount; i++) {
     auditoriums.push(mockAuditorium(value));
   }

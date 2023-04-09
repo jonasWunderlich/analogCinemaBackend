@@ -2,7 +2,7 @@ import CinemaRepo from "@src/repos/CinemaRepo";
 import CinemaSchema from "@src/schemas/CinemaSchema";
 import { RouteError } from "@src/other/classes";
 import HttpStatusCodes from "@src/constants/HttpStatusCodes";
-import { Cinema } from "@src/models/cinema";
+import Cinema, { ICinema, ICinemaCreate } from "@src/models/Cinema";
 
 // **** Variables **** //
 
@@ -14,26 +14,34 @@ export const CINEMA_INVALID_ERR = "Cinema has invalid data";
 /**
  * Get all cinemas.
  */
-function getAll(): Promise<Cinema[]> {
+function getAll(): Promise<ICinema[]> {
   return CinemaRepo.getAll();
 }
 
 /**
  * Add one cinema.
  */
-function addOne(cinema: Cinema): Promise<void> {
-  return CinemaRepo.add(cinema);
+async function addOne(cinema: ICinemaCreate): Promise<void> {
+  const validate = (await CinemaSchema.validateCreateCinema(
+    cinema
+  )) as Promise<void>;
+  if (!validate) {
+    throw new RouteError(HttpStatusCodes.BAD_REQUEST, CINEMA_INVALID_ERR);
+  }
+  return CinemaRepo.add(Cinema.new(cinema));
 }
 
 /**
  * Update one cinema.
  */
-async function updateOne(cinema: Cinema): Promise<void> {
+async function updateOne(cinema: ICinema): Promise<void> {
   const persists = await CinemaRepo.persists(cinema.id);
   if (!persists) {
     throw new RouteError(HttpStatusCodes.NOT_FOUND, CINEMA_NOT_FOUND_ERR);
   }
-  const validate = (await CinemaSchema.validateCinema(cinema)) as Promise<void>;
+  const validate = (await CinemaSchema.validateUpdateCinema(
+    cinema
+  )) as Promise<void>;
   if (!validate) {
     throw new RouteError(HttpStatusCodes.BAD_REQUEST, CINEMA_INVALID_ERR);
   }

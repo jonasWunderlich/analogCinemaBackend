@@ -1,39 +1,47 @@
 import { RouteError } from "@src/other/classes";
 import HttpStatusCodes from "@src/constants/HttpStatusCodes";
-import { Report } from "@src/models/report";
+import Report, { IReport, IReportCreate } from "@src/models/Report";
 import ReportRepo from "@src/repos/ReportRepo";
 import ReportSchema from "@src/schemas/ReportSchema";
 
 // **** Variables **** //
 
 export const REPORT_NOT_FOUND_ERR = "Report not found";
-export const REPORT_INVALID_ERR = "Report not found";
+export const REPORT_INVALID_ERR = "Report has Invalid values";
 
 // **** Functions **** //
 
 /**
  * Get all reports.
  */
-function getAll(): Promise<Report[]> {
+function getAll(): Promise<IReport[]> {
   return ReportRepo.getAll();
 }
 
 /**
  * Add one report.
  */
-function addOne(report: Report): Promise<void> {
-  return ReportRepo.add(report);
+async function addOne(report: IReportCreate): Promise<void> {
+  const validate = (await ReportSchema.validateCreateReport(
+    report
+  )) as Promise<void>;
+  if (!validate) {
+    throw new RouteError(HttpStatusCodes.BAD_REQUEST, REPORT_INVALID_ERR);
+  }
+  return ReportRepo.add(Report.new(report));
 }
 
 /**
  * Update one report.
  */
-async function updateOne(report: Report): Promise<void> {
+async function updateOne(report: IReport): Promise<void> {
   const persists = await ReportRepo.persists(report.id);
   if (!persists) {
     throw new RouteError(HttpStatusCodes.NOT_FOUND, REPORT_NOT_FOUND_ERR);
   }
-  const validate = (await ReportSchema.validateReport(report)) as Promise<void>;
+  const validate = (await ReportSchema.validateUpdateReport(
+    report
+  )) as Promise<void>;
   if (!validate) {
     throw new RouteError(HttpStatusCodes.BAD_REQUEST, REPORT_INVALID_ERR);
   }

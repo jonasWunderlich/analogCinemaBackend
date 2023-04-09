@@ -11,10 +11,10 @@ import {
   MOCKED_TMDBIDS,
 } from "./constants";
 import { randomUUID } from "crypto";
-import { Projection } from "@src/models/projection";
+import { IProjection } from "@src/models/Projection";
 import { DeepPartial } from "@src/models/deep-partial";
 
-const PROJECTION_DEFAULT_VALUES: Projection = {
+const PROJECTION_DEFAULT_VALUES: IProjection = {
   id: "0",
   createdAt: "2020-10-30T09:32:19.196720000+0000",
   lastModifiedAt: "2020-11-30T10:32:19.196720000+0000",
@@ -39,11 +39,11 @@ const PROJECTION_DEFAULT_VALUES: Projection = {
  * @example mockProjection({name: 'Hofbauer Kongress'})
  */
 export function mockProjection(
-  projectionValues: DeepPartial<Projection>
-): Projection {
+  projectionValues: DeepPartial<IProjection>
+): IProjection {
   const id = randomUUID();
   const date = randomDate(new Date(), new Date(2023, 12, 0));
-  const defaultValues: Projection = {
+  const defaultValues: IProjection = {
     id,
     createdAt: PROJECTION_DEFAULT_VALUES.createdAt,
     lastModifiedAt: PROJECTION_DEFAULT_VALUES.lastModifiedAt,
@@ -57,7 +57,7 @@ export function mockProjection(
   return {
     ...defaultValues,
     ...projectionValues,
-  } as Projection;
+  } as IProjection;
 }
 
 /**
@@ -77,8 +77,8 @@ export function mockProjections(
   date: Date,
   length: number,
   cinemaRef?: string
-): Projection[] {
-  const projections: Projection[] = [];
+): IProjection[] {
+  const projections: IProjection[] = [];
   for (let i = 0; i < amount; i++) {
     projections.push(
       mockProjection({

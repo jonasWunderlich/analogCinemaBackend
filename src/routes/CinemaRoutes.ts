@@ -2,7 +2,7 @@ import HttpStatusCodes from "@src/constants/HttpStatusCodes";
 
 import CinemaService from "@src/services/CinemaService";
 import { IReq, IRes } from "./types/express/misc";
-import { Cinema } from "@src/models/cinema";
+import { ICinema, ICinemaCreate } from "@src/models/Cinema";
 
 // **** Functions **** //
 
@@ -17,7 +17,7 @@ async function getAll(_: IReq, res: IRes) {
 /**
  * Add one cinema.
  */
-async function add(req: IReq<{ cinema: Cinema }>, res: IRes) {
+async function add(req: IReq<{ cinema: ICinemaCreate }>, res: IRes) {
   const { cinema } = req.body;
   await CinemaService.addOne(cinema);
   return res.status(HttpStatusCodes.CREATED).end();
@@ -26,7 +26,7 @@ async function add(req: IReq<{ cinema: Cinema }>, res: IRes) {
 /**
  * Update one cinema.
  */
-async function update(req: IReq<{ cinema: Cinema }>, res: IRes) {
+async function update(req: IReq<{ cinema: ICinema }>, res: IRes) {
   const { cinema } = req.body;
   await CinemaService.updateOne(cinema);
   return res.status(HttpStatusCodes.OK).end();

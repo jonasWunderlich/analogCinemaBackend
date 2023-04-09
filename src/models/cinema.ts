@@ -1,19 +1,16 @@
 // **** Variables **** //
 
+import { randomUUID } from "crypto";
+import { Address, CommonEntity } from "./common";
+
 const INVALID_CONSTRUCTOR_PARAM =
   "nameOrObj arg must a string or an " +
   "object with the appropriate cinema keys.";
 
-export interface Cinema {
-  id: string;
-  createdAt?: string;
-  lastModifiedAt?: string;
+export interface ICinemaCreate extends Address {
   title: string;
-  geoCoordinates: number[];
   text?: string;
-  street?: string;
-  postcode?: string;
-  city?: string;
+  geoCoordinates: number[];
   mail?: string;
   phone?: string;
   linkHomepage?: string;
@@ -26,87 +23,48 @@ export interface Cinema {
   eventRefs: string[];
 }
 
+export interface ICinema extends CommonEntity, ICinemaCreate {}
+
 // **** Functions **** //
 
 /**
  * Create new Cinema.
  */
-function new_(
-  title?: string,
-  geoCoordinates?: number[],
-  createdAt?: string,
-  lastModifiedAt?: string,
-  text?: string,
-  street?: string,
-  postcode?: string,
-  city?: string,
-  mail?: string,
-  phone?: string,
-  linkHomepage?: string,
-  linkProgram?: string,
-  linkOpeningHours?: string,
-  images?: string[],
-  auditoriumRefs?: string[],
-  projectionRefs?: string[],
-  reportRefs?: string[],
-  eventRefs?: string[],
-  // id?: number, // id last cause usually set by db
-  id?: string // id last cause usually set by db
-): Cinema {
+function new_(input: ICinemaCreate): ICinema {
   return {
-    // id: id ?? -1,
-    id: id ?? "",
-    title: title ?? "",
-    createdAt: createdAt ?? "",
-    lastModifiedAt: lastModifiedAt ?? "",
-    geoCoordinates: geoCoordinates ?? [],
-    text: text ?? "",
-    street: street ?? "",
-    postcode: postcode ?? "",
-    city: city ?? "",
-    mail: mail ?? "",
-    phone: phone ?? "",
-    linkHomepage: linkHomepage ?? "",
-    linkProgram: linkProgram ?? "",
-    linkOpeningHours: linkOpeningHours ?? "",
-    images: images ?? [],
-    auditoriumRefs: auditoriumRefs ?? [],
-    projectionRefs: projectionRefs ?? [],
-    reportRefs: reportRefs ?? [],
-    eventRefs: eventRefs ?? [],
+    id: randomUUID(),
+    createdAt: new Date().toJSON(),
+    lastModifiedAt: new Date().toJSON(),
+    title: input.title ?? "",
+    geoCoordinates: input.geoCoordinates ?? [],
+    text: input.text ?? "",
+    street: input.street ?? "",
+    postcode: input.postcode ?? "",
+    city: input.city ?? "",
+    mail: input.mail ?? "",
+    phone: input.phone ?? "",
+    linkHomepage: input.linkHomepage ?? "",
+    linkProgram: input.linkProgram ?? "",
+    linkOpeningHours: input.linkOpeningHours ?? "",
+    images: input.images ?? [],
+    auditoriumRefs: input.auditoriumRefs ?? [],
+    projectionRefs: input.projectionRefs ?? [],
+    reportRefs: input.reportRefs ?? [],
+    eventRefs: input.eventRefs ?? [],
   };
 }
 
 /**
  * Get cinema instance from object.
  */
-function from(param: object): Cinema {
+function from(param: ICinemaCreate): ICinema {
   // Check is cinema
   if (!isCinema(param)) {
     throw new Error(INVALID_CONSTRUCTOR_PARAM);
   }
   // Get cinema instance
-  const p = param as Cinema;
-  return new_(
-    p.title,
-    p.geoCoordinates,
-    p.createdAt,
-    p.lastModifiedAt,
-    p.text,
-    p.street,
-    p.postcode,
-    p.city,
-    p.mail,
-    p.phone,
-    p.linkHomepage,
-    p.linkProgram,
-    p.linkOpeningHours,
-    p.images,
-    p.auditoriumRefs,
-    p.projectionRefs,
-    p.reportRefs,
-    p.eventRefs
-  );
+  const p = param as ICinema;
+  return new_(p);
 }
 
 /**
@@ -116,9 +74,6 @@ function isCinema(arg: unknown): boolean {
   return (
     !!arg &&
     typeof arg === "object" &&
-    "id" in arg &&
-    "createdAt" in arg &&
-    "lastModifiedAt" in arg &&
     "title" in arg &&
     "geoCoordinates" in arg &&
     "text" in arg &&

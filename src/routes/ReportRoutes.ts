@@ -2,7 +2,7 @@ import HttpStatusCodes from "@src/constants/HttpStatusCodes";
 
 import ReportService from "@src/services/ReportService";
 import { IReq, IRes } from "./types/express/misc";
-import { Report } from "@src/models/report";
+import { IReport, IReportCreate } from "@src/models/Report";
 
 // **** Functions **** //
 
@@ -17,7 +17,7 @@ async function getAll(_: IReq, res: IRes) {
 /**
  * Add one report.
  */
-async function add(req: IReq<{ report: Report }>, res: IRes) {
+async function add(req: IReq<{ report: IReportCreate }>, res: IRes) {
   const { report } = req.body;
   await ReportService.addOne(report);
   return res.status(HttpStatusCodes.CREATED).end();
@@ -26,7 +26,7 @@ async function add(req: IReq<{ report: Report }>, res: IRes) {
 /**
  * Update one report.
  */
-async function update(req: IReq<{ report: Report }>, res: IRes) {
+async function update(req: IReq<{ report: IReport }>, res: IRes) {
   const { report } = req.body;
   await ReportService.updateOne(report);
   return res.status(HttpStatusCodes.OK).end();
