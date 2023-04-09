@@ -4,11 +4,14 @@ export interface Projection {
   lastModifiedAt?: string;
   title: string;
   text: string;
+
   date: string;
+  images?: string[];
+
   tmdb?: string;
   black?: boolean;
   agent?: string;
-  images?: string[];
+
   reportRefs?: string[];
   cinemaRef?: string;
   eventRef?: string;

@@ -2,11 +2,12 @@ import ScreeningEventRepo from "@src/repos/ScreeningEventRepo";
 import { RouteError } from "@src/other/classes";
 import HttpStatusCodes from "@src/constants/HttpStatusCodes";
 import { ScreeningEvent } from "@src/models/screening-event";
+import EventSchema from "@src/schemas/EventSchema";
 
 // **** Variables **** //
 
 export const SCREENING_EVENT_NOT_FOUND_ERR = "ScreeningEvent not found";
-
+export const SCREENING_EVENT_INVALID_ERR = "ScreeningEvent has invalid data";
 // **** Functions **** //
 
 /**
@@ -32,6 +33,15 @@ async function updateOne(screeningEvent: ScreeningEvent): Promise<void> {
     throw new RouteError(
       HttpStatusCodes.NOT_FOUND,
       SCREENING_EVENT_NOT_FOUND_ERR
+    );
+  }
+  const validate = (await EventSchema.validateEvent(
+    screeningEvent
+  )) as Promise<void>;
+  if (!validate) {
+    throw new RouteError(
+      HttpStatusCodes.BAD_REQUEST,
+      SCREENING_EVENT_INVALID_ERR
     );
   }
   // Return screeningEvent
