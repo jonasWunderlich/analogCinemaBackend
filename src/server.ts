@@ -21,6 +21,8 @@ import { NodeEnvs } from "@src/constants/misc";
 import { RouteError } from "@src/other/classes";
 import { buildRefrencedApiMocks } from "./utilities/build-referenced-mocks";
 
+import swaggerUi from "swagger-ui-express";
+
 // **** Variables **** //
 
 const app = express();
@@ -31,6 +33,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(EnvVars.CookieProps.Secret));
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(require("./swagger.json")));
 
 // Show routes called in console during development
 if (EnvVars.NodeEnv === NodeEnvs.Dev) {

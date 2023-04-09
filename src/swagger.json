@@ -1,0 +1,35 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Analogkino API Documentation",
+    "contact": {
+      "name": "Jonas",
+      "email": "jonas@systemkultur.de"
+    }
+  },
+  "host": "127.0.0.1:8001",
+  "basePath": "/analogkino/rest/",
+  "schemes": ["http"],
+  "paths": {
+    "/test": {
+      "get": {
+        "description": "Main Desc",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "some name",
+            "description": "desc",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "some desc"
+          }
+        }
+      }
+    }
+  }
+}

@@ -22,12 +22,35 @@ const apiRouter = Router(),
 
 // ** Add UserRouter ** //
 
+/**
+ * Express router to mount user related functions on.
+ * @type {object}
+ * @const
+ * @namespace usersRouter
+ */
 const userRouter = Router();
 
-// Get all users
+/**
+ * Route getting all users.
+ * @name cinemas/all
+ * @function
+ * @memberof module:routers/users~userRouter
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware.
+ */
 userRouter.get(Paths.Users.Get, UserRoutes.getAll);
 
-// Get one user
+/**
+ * Route getting one user.
+ * @name cinemas/get/:id
+ * @function
+ * @memberof module:routers/users~userRouter
+ * @inner
+ * @param {string} path - Express path
+ * @param {validate} path - Validation options
+ * @param {callback} middleware - Express middleware.
+ */
 userRouter.get(
   Paths.Users.GetOne,
   validate(["id", "number", "params"]),
@@ -58,8 +81,12 @@ userRouter.delete(
 // Add UserRouter
 apiRouter.use(Paths.Users.Base, userRouter);
 
-// ** Add CinemaRouter ** //
-
+/**
+ * Express router to mount user related functions on.
+ * @type {object}
+ * @const
+ * @namespace cinemaRouter
+ */
 const cinemaRouter = Router();
 
 // Get all cinemas
@@ -96,8 +123,12 @@ cinemaRouter.delete(
 // Add CinemaRouter
 apiRouter.use(Paths.Cinemas.Base, cinemaRouter);
 
-// ** Add ReportRouter ** //
-
+/**
+ * Express router to mount report related functions on.
+ * @type {object}
+ * @const
+ * @namespace reportRouter
+ */
 const reportRouter = Router();
 
 // Get all reports
@@ -134,8 +165,12 @@ reportRouter.delete(
 // Add ReportsRouter
 apiRouter.use(Paths.Reports.Base, reportRouter);
 
-// ** Add ProjectionRouter ** //
-
+/**
+ * Express router to mount projection related functions on.
+ * @type {object}
+ * @const
+ * @namespace projectionRouter
+ */
 const projectionRouter = Router();
 
 // Get all projections
@@ -172,8 +207,12 @@ projectionRouter.delete(
 // Add ProjectionsRouter
 apiRouter.use(Paths.Projections.Base, projectionRouter);
 
-// ** Add ScreeningEventRouter ** //
-
+/**
+ * Express router to mount screeningEvent related functions on.
+ * @type {object}
+ * @const
+ * @namespace screeningEventRouter
+ */
 const screeningEventRouter = Router();
 
 // Get all screeningEvents
@@ -213,8 +252,12 @@ screeningEventRouter.delete(
 // Add ScreeningEventsRouter
 apiRouter.use(Paths.ScreeningEvents.Base, screeningEventRouter);
 
-// ** Add ScreeningEventRouter ** //
-
+/**
+ * Express router to mount auditorium related functions on.
+ * @type {object}
+ * @const
+ * @namespace auditoriumRouter
+ */
 const auditoriumRouter = Router();
 
 // Get all auditoriums
