@@ -25,7 +25,8 @@ const AUDITORIUM_DEFAULT_VALUES: Auditorium = {
     "Loge",
     "Bar",
   ],
-  reports: [],
+  reportRefs: [],
+  images: [],
 };
 
 /**
@@ -62,7 +63,8 @@ export function mockAuditorium(
     ),
     seats: pickRandom([40, 300, 200, 90]) || AUDITORIUM_DEFAULT_VALUES.seats,
     screen: AUDITORIUM_DEFAULT_VALUES.screen,
-    reports: AUDITORIUM_DEFAULT_VALUES.reports,
+    reportRefs: [],
+    images: [],
   };
   return {
     ...defaultValues,

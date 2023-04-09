@@ -9,9 +9,11 @@ export interface Report {
   createdAt: string;
   lastModifiedAt: string;
   title: string;
-  date: string;
   text: string;
+
+  date: string;
   images?: string[];
+
   eventRef?: string;
   projectionRef?: string;
   cinemaRef?: string;
@@ -33,6 +35,7 @@ function new_(
   auditoriumRef?: string,
   projectionRef?: string,
   eventRef?: string,
+  cinemaRef?: string,
   id?: string // id last cause usually set by db
   // id?: number, // id last cause usually set by db
 ): Report {
@@ -48,6 +51,7 @@ function new_(
     auditoriumRef: auditoriumRef ?? "",
     projectionRef: projectionRef ?? "",
     eventRef: eventRef ?? "",
+    cinemaRef: cinemaRef ?? "",
   };
 }
 
@@ -70,7 +74,7 @@ function from(param: object): Report {
     p.images,
     p.eventRef,
     p.projectionRef,
-    p.eventRef
+    p.cinemaRef
   );
 }
 
@@ -89,9 +93,10 @@ function isReport(arg: unknown): boolean {
     "text" in arg &&
     "images" in arg &&
     "auditoriumRef" in arg &&
-    "eventRef" in arg &&
+    "cinemaRef" in arg &&
     "projectionRef" in arg &&
-    "eventRef" in arg
+    "eventRef" in arg &&
+    "cinemaRef" in arg
   );
 }
 
