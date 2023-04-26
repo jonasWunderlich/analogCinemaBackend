@@ -41,6 +41,7 @@
     "jsonwebtoken": "^9.0.0",
     "module-alias": "^2.2.2",
     "morgan": "^1.10.0",
+    "prettier-plugin-organize-imports": "^3.2.2",
     "swagger-ui-express": "^4.6.2",
     "ts-command-line-args": "^2.4.2",
     "tsoa": "^5.1.1",
