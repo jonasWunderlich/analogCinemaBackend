@@ -1,5 +1,5 @@
-import orm from "./MockOrm";
-import { IReport, IReportCreate } from "@src/models/Report";
+import orm from './MockOrm';
+import { IReport } from '@src/models/Report';
 
 // **** Functions **** //
 

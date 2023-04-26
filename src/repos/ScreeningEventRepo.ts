@@ -1,8 +1,5 @@
-import orm from "./MockOrm";
-import {
-  IScreeningEvent,
-  IScreeningEventCreate,
-} from "@src/models/ScreeningEvent";
+import orm from './MockOrm';
+import { IScreeningEvent } from '@src/models/ScreeningEvent';
 
 // **** Functions **** //
 
